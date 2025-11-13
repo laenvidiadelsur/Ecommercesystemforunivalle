@@ -20,7 +20,7 @@ export function Catalog({ onNavigate }: CatalogProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>('');
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [sortOrder, setSortOrder] = useState('reciente');
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export function Catalog({ onNavigate }: CatalogProps) {
     try {
       setLoading(true);
       const data = await productsAPI.getAll({
-        categoria: selectedCategory || undefined,
+        categoria: selectedCategory && selectedCategory !== 'all' ? selectedCategory : undefined,
         busqueda: searchQuery || undefined,
         orden: sortOrder
       });
@@ -91,7 +91,7 @@ export function Catalog({ onNavigate }: CatalogProps) {
               <SelectValue placeholder="Todas las categorías" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="">Todas las categorías</SelectItem>
+              <SelectItem value="all">Todas las categorías</SelectItem>
               {categories.map((cat) => (
                 <SelectItem key={cat.id} value={cat.id}>
                   {cat.nombre}

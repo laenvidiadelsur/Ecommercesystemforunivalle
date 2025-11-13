@@ -39,7 +39,19 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setCart(data);
     } catch (error: any) {
       console.error('Error loading cart:', error);
-      toast.error('Error al cargar el carrito');
+      // Try direct Supabase if Edge Function fails
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        try {
+          const { directCartAPI } = await import('../utils/supabase/direct');
+          const data = await directCartAPI.get();
+          setCart(data);
+        } catch (directError: any) {
+          console.error('Error loading cart (direct):', directError);
+          toast.error('Error al cargar el carrito');
+        }
+      } else {
+        toast.error('Error al cargar el carrito');
+      }
     } finally {
       setLoading(false);
     }

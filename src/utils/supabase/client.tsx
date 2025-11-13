@@ -5,10 +5,19 @@ let supabaseInstance: ReturnType<typeof createSupabaseClient> | null = null;
 
 export function createClient() {
   if (!supabaseInstance) {
-    supabaseInstance = createSupabaseClient(
-      `https://${projectId}.supabase.co`,
-      publicAnonKey
-    );
+    const supabaseUrl = `https://${projectId}.supabase.co`;
+    
+    if (!projectId || !publicAnonKey) {
+      throw new Error('Supabase configuration is missing. Please check your environment variables.');
+    }
+
+    supabaseInstance = createSupabaseClient(supabaseUrl, publicAnonKey, {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
+    });
   }
   return supabaseInstance;
 }

@@ -48,8 +48,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   async function loadProfile(token: string) {
     try {
-      const profile = await authAPI.getProfile(token);
-      setUser(profile);
+      // Try Edge Function first, fallback to direct Supabase
+      try {
+        const profile = await authAPI.getProfile(token);
+        setUser(profile);
+      } catch (edgeError) {
+        // Fallback to direct Supabase call
+        console.warn('Edge Function unavailable, using direct Supabase:', edgeError);
+        const { directAuthAPI } = await import('../utils/supabase/direct');
+        const profile = await directAuthAPI.getProfile();
+        setUser(profile);
+      }
     } catch (error) {
       console.error('Load profile error:', error);
       // If profile loading fails, clear auth
@@ -65,25 +74,54 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     });
 
     if (error) {
+      // Handle email not confirmed error
+      if (error.message.includes('Email not confirmed') || error.message.includes('email_not_confirmed')) {
+        throw new Error('Por favor confirma tu email antes de iniciar sesión. Revisa tu bandeja de entrada.');
+      }
       throw new Error(error.message);
     }
 
     if (data.session?.access_token) {
       setAccessToken(data.session.access_token);
       await loadProfile(data.session.access_token);
+    } else {
+      // Session might be null if email confirmation is required
+      throw new Error('Por favor confirma tu email antes de iniciar sesión.');
     }
   }
 
   async function signUp(signupData: any) {
-    await authAPI.signup(signupData);
-    // After signup, sign in automatically
-    await signIn(signupData.email, signupData.password);
+    try {
+      await authAPI.signup(signupData);
+      // After signup, sign in automatically
+      await signIn(signupData.email, signupData.password);
+    } catch (error: any) {
+      // If signup fails, try direct Supabase
+      if (error.message.includes('conexión') || error.message.includes('no disponible')) {
+        console.warn('Using direct Supabase signup');
+        const { directAuthAPI } = await import('../utils/supabase/direct');
+        await directAuthAPI.signup(signupData);
+        // After direct signup, sign in
+        await signIn(signupData.email, signupData.password);
+      } else {
+        throw error;
+      }
+    }
   }
 
   async function signOut() {
-    await supabase.auth.signOut();
-    setUser(null);
-    setAccessToken(null);
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        console.error('Sign out error:', error);
+      }
+    } catch (error) {
+      console.error('Sign out error:', error);
+    } finally {
+      // Siempre limpiar el estado local
+      setUser(null);
+      setAccessToken(null);
+    }
   }
 
   async function refreshProfile() {

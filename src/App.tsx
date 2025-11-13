@@ -8,6 +8,9 @@ import { Login } from './pages/Login';
 import { Signup } from './pages/Signup';
 import { Catalog } from './pages/Catalog';
 import { MyOrders } from './pages/MyOrders';
+import { Vendor } from './pages/Vendor';
+import { ProductDetail } from './pages/ProductDetail';
+import { Button } from './components/ui/button';
 import { Toaster } from './components/ui/sonner';
 
 type Page = 
@@ -24,12 +27,32 @@ type Page =
   | '/perfil';
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<string>('/');
+  // Initialize from current URL pathname
+  const [currentPage, setCurrentPage] = useState<string>(() => {
+    return window.location.pathname || '/';
+  });
 
   function navigate(path: string) {
     setCurrentPage(path);
     window.scrollTo(0, 0);
+    // Update URL without page reload
+    window.history.pushState({}, '', path);
   }
+
+  // Handle browser back/forward buttons and initial load
+  useEffect(() => {
+    // Set initial page from URL
+    const initialPath = window.location.pathname || '/';
+    if (initialPath !== currentPage) {
+      setCurrentPage(initialPath);
+    }
+
+    function handlePopState() {
+      setCurrentPage(window.location.pathname || '/');
+    }
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
 
   function renderPage() {
     // Simple routing based on current page
@@ -51,6 +74,32 @@ export default function App() {
     
     if (currentPage === '/mis-ordenes') {
       return <MyOrders onNavigate={navigate} />;
+    }
+    
+    if (currentPage === '/vendedor') {
+      return <Vendor onNavigate={navigate} />;
+    }
+    
+    // Product detail page
+    if (currentPage.startsWith('/producto/')) {
+      const match = currentPage.match(/\/producto\/([^/]+)/);
+      const productId = match ? match[1] : undefined;
+      return <ProductDetail onNavigate={navigate} productId={productId} />;
+    }
+    
+    // Checkout page (placeholder for now)
+    if (currentPage === '/checkout') {
+      return (
+        <div className="container py-12 text-center">
+          <h1 className="mb-4 text-3xl">Checkout</h1>
+          <p className="text-muted-foreground mb-4">
+            Página de checkout en desarrollo
+          </p>
+          <Button onClick={() => navigate('/')}>
+            Volver al inicio
+          </Button>
+        </div>
+      );
     }
     
     // Placeholder for other pages

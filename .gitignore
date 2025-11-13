@@ -1,0 +1,7 @@
+.vercel
+node_modules/
+build/
+cypress/videos/
+cypress/screenshots/
+cypress/reports/*.html
+reports/*.html

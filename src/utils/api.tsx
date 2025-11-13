@@ -9,51 +9,124 @@ interface FetchOptions extends RequestInit {
 async function fetchAPI<T>(endpoint: string, options: FetchOptions = {}): Promise<T> {
   const { token, ...fetchOptions } = options;
   
+  // Validate configuration
+  if (!projectId || !publicAnonKey) {
+    throw new Error('Supabase configuration is missing. Please check your environment variables.');
+  }
+
   const headers: HeadersInit = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token || publicAnonKey}`,
     ...fetchOptions.headers,
   };
 
-  const response = await fetch(`${API_BASE_URL}${endpoint}`, {
-    ...fetchOptions,
-    headers,
-  });
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      ...fetchOptions,
+      headers,
+    });
 
-  const data = await response.json();
+    // Handle non-JSON responses
+    const contentType = response.headers.get('content-type');
+    let data;
+    
+    if (contentType && contentType.includes('application/json')) {
+      data = await response.json();
+    } else {
+      const text = await response.text();
+      throw new Error(`Unexpected response format: ${text}`);
+    }
 
-  if (!response.ok) {
-    console.error(`API Error [${endpoint}]:`, data);
-    throw new Error(data.error || 'Error en la petición');
+    if (!response.ok) {
+      console.error(`API Error [${endpoint}]:`, data);
+      throw new Error(data.error || data.message || `Error en la petición: ${response.statusText}`);
+    }
+
+    return data;
+  } catch (error: any) {
+    // Enhanced error handling - throw error to allow fallback
+    if (error instanceof TypeError && error.message.includes('fetch')) {
+      const connectionError = new Error('Edge Function no disponible, usando Supabase directo');
+      (connectionError as any).isConnectionError = true;
+      throw connectionError;
+    }
+    throw error;
   }
-
-  return data;
 }
 
-// Auth API
+// Auth API with fallback to direct Supabase
 export const authAPI = {
-  signup: (data: any, token?: string) => 
-    fetchAPI('/auth/signup', { method: 'POST', body: JSON.stringify(data), token }),
+  signup: async (data: any, token?: string) => {
+    try {
+      return await fetchAPI('/auth/signup', { method: 'POST', body: JSON.stringify(data), token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        console.warn('Edge Function unavailable, using direct Supabase signup');
+        const { directAuthAPI } = await import('./supabase/direct');
+        return await directAuthAPI.signup(data);
+      }
+      throw error;
+    }
+  },
   
-  getProfile: (token: string) => 
-    fetchAPI('/auth/profile', { token }),
+  getProfile: async (token: string) => {
+    try {
+      return await fetchAPI('/auth/profile', { token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directAuthAPI } = await import('./supabase/direct');
+        return await directAuthAPI.getProfile();
+      }
+      throw error;
+    }
+  },
   
   updateProfile: (data: any, token: string) => 
     fetchAPI('/auth/profile', { method: 'PUT', body: JSON.stringify(data), token }),
 };
 
-// Products API
+// Products API with fallback to direct Supabase
 export const productsAPI = {
-  getAll: (params?: { categoria?: string; busqueda?: string; orden?: string }) => {
-    const query = new URLSearchParams(params as any).toString();
-    return fetchAPI(`/products${query ? `?${query}` : ''}`);
+  getAll: async (params?: { categoria?: string; busqueda?: string; orden?: string }) => {
+    try {
+      const query = new URLSearchParams(params as any).toString();
+      return await fetchAPI(`/products${query ? `?${query}` : ''}`);
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directProductsAPI } = await import('./supabase/direct');
+        return await directProductsAPI.getAll(params);
+      }
+      throw error;
+    }
   },
   
-  getById: (id: string) => 
-    fetchAPI(`/products/${id}`),
+  getById: async (id: string) => {
+    try {
+      return await fetchAPI(`/products/${id}`);
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directProductsAPI } = await import('./supabase/direct');
+        return await directProductsAPI.getById(id);
+      }
+      throw error;
+    }
+  },
   
-  create: (data: any, token: string) => 
-    fetchAPI('/products', { method: 'POST', body: JSON.stringify(data), token }),
+  create: async (data: any, token: string) => {
+    try {
+      return await fetchAPI('/products', { method: 'POST', body: JSON.stringify(data), token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directProductsAPI } = await import('./supabase/direct');
+        return await directProductsAPI.create(data);
+      }
+      throw error;
+    }
+  },
   
   update: (id: string, data: any, token: string) => 
     fetchAPI(`/products/${id}`, { method: 'PUT', body: JSON.stringify(data), token }),
@@ -61,13 +134,34 @@ export const productsAPI = {
   delete: (id: string, token: string) => 
     fetchAPI(`/products/${id}`, { method: 'DELETE', token }),
   
-  getMyProducts: (token: string) => 
-    fetchAPI('/products/vendor/my-products', { token }),
+  getMyProducts: async (token: string) => {
+    try {
+      return await fetchAPI('/products/vendor/my-products', { token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directProductsAPI } = await import('./supabase/direct');
+        return await directProductsAPI.getMyProducts();
+      }
+      throw error;
+    }
+  },
 };
 
-// Categories API
+// Categories API with fallback to direct Supabase
 export const categoriesAPI = {
-  getAll: () => fetchAPI('/categories'),
+  getAll: async () => {
+    try {
+      return await fetchAPI('/categories');
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directCategoriesAPI } = await import('./supabase/direct');
+        return await directCategoriesAPI.getAll();
+      }
+      throw error;
+    }
+  },
   
   create: (data: any, token: string) => 
     fetchAPI('/categories', { method: 'POST', body: JSON.stringify(data), token }),
@@ -76,22 +170,72 @@ export const categoriesAPI = {
     fetchAPI(`/categories/${id}`, { method: 'PUT', body: JSON.stringify(data), token }),
 };
 
-// Cart API
+// Cart API with fallback to direct Supabase
 export const cartAPI = {
-  get: (token: string) => 
-    fetchAPI('/cart', { token }),
+  get: async (token: string) => {
+    try {
+      return await fetchAPI('/cart', { token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directCartAPI } = await import('./supabase/direct');
+        return await directCartAPI.get();
+      }
+      throw error;
+    }
+  },
   
-  addItem: (data: { producto_id: string; cantidad: number }, token: string) => 
-    fetchAPI('/cart/items', { method: 'POST', body: JSON.stringify(data), token }),
+  addItem: async (data: { producto_id: string; cantidad: number }, token: string) => {
+    try {
+      return await fetchAPI('/cart/items', { method: 'POST', body: JSON.stringify(data), token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directCartAPI } = await import('./supabase/direct');
+        return await directCartAPI.addItem(data.producto_id, data.cantidad);
+      }
+      throw error;
+    }
+  },
   
-  updateItem: (id: string, data: { cantidad: number }, token: string) => 
-    fetchAPI(`/cart/items/${id}`, { method: 'PUT', body: JSON.stringify(data), token }),
+  updateItem: async (id: string, data: { cantidad: number }, token: string) => {
+    try {
+      return await fetchAPI(`/cart/items/${id}`, { method: 'PUT', body: JSON.stringify(data), token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directCartAPI } = await import('./supabase/direct');
+        return await directCartAPI.updateItem(id, data.cantidad);
+      }
+      throw error;
+    }
+  },
   
-  removeItem: (id: string, token: string) => 
-    fetchAPI(`/cart/items/${id}`, { method: 'DELETE', token }),
+  removeItem: async (id: string, token: string) => {
+    try {
+      return await fetchAPI(`/cart/items/${id}`, { method: 'DELETE', token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directCartAPI } = await import('./supabase/direct');
+        return await directCartAPI.removeItem(id);
+      }
+      throw error;
+    }
+  },
   
-  clear: (token: string) => 
-    fetchAPI('/cart/clear', { method: 'DELETE', token }),
+  clear: async (token: string) => {
+    try {
+      return await fetchAPI('/cart/clear', { method: 'DELETE', token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión')) {
+        console.warn('Edge Function unavailable, using direct Supabase');
+        const { directCartAPI } = await import('./supabase/direct');
+        return await directCartAPI.clear();
+      }
+      throw error;
+    }
+  },
 };
 
 // Orders API
