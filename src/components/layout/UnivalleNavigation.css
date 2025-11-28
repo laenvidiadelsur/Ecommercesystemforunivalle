@@ -1,0 +1,414 @@
+/* Univalle Navigation Component Styles */
+
+.univalle-navigation {
+  background-color: var(--univalle-white);
+  border-bottom: 1px solid var(--univalle-gray-border);
+  box-shadow: var(--univalle-shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.univalle-navigation-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) 0;
+  gap: var(--space-lg);
+}
+
+/* Logo Styles */
+.univalle-navigation-logo {
+  flex-shrink: 0;
+}
+
+.univalle-logo-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.univalle-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.univalle-logo-icon {
+  width: 40px;
+  height: 40px;
+  background-color: var(--univalle-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.univalle-logo-shape {
+  width: 20px;
+  height: 20px;
+  background-color: var(--univalle-white);
+  border-radius: 2px;
+  position: relative;
+}
+
+.univalle-logo-shape::before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background-color: var(--univalle-primary);
+  border-radius: 1px;
+}
+
+.univalle-logo-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+.univalle-logo-title {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--univalle-primary);
+  letter-spacing: -0.5px;
+}
+
+.univalle-logo-subtitle {
+  font-size: var(--text-xs);
+  color: var(--univalle-gray-medium);
+  font-weight: var(--font-weight-medium);
+  margin-top: 2px;
+}
+
+/* Desktop Navigation Menu */
+.univalle-navigation-menu {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.univalle-navigation-list {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: var(--space-xl);
+}
+
+.univalle-navigation-item {
+  position: relative;
+}
+
+.univalle-navigation-link {
+  text-decoration: none;
+  color: var(--univalle-gray-dark);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-base);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-md);
+  transition: var(--transition-fast);
+  position: relative;
+  display: block;
+}
+
+.univalle-navigation-link:hover {
+  color: var(--univalle-primary);
+  background-color: var(--univalle-gray-light);
+}
+
+.univalle-navigation-link-active {
+  color: var(--univalle-primary);
+  background-color: rgba(204, 0, 0, 0.1);
+}
+
+.univalle-navigation-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 24px;
+  height: 2px;
+  background-color: var(--univalle-primary);
+  border-radius: 1px;
+}
+
+/* Search Styles */
+.univalle-navigation-search {
+  flex: 0 0 300px;
+}
+
+.univalle-search-form {
+  width: 100%;
+}
+
+.univalle-search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.univalle-search-input {
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg) var(--space-sm) var(--space-md);
+  border: 1px solid var(--univalle-gray-border);
+  border-radius: var(--radius-lg);
+  font-size: var(--text-sm);
+  background-color: var(--univalle-gray-light);
+  color: var(--univalle-gray-dark);
+  transition: var(--transition-fast);
+}
+
+.univalle-search-input:focus {
+  outline: none;
+  border-color: var(--univalle-primary);
+  background-color: var(--univalle-white);
+  box-shadow: 0 0 0 3px rgba(204, 0, 0, 0.1);
+}
+
+.univalle-search-input::placeholder {
+  color: var(--univalle-gray-medium);
+}
+
+.univalle-search-button {
+  position: absolute;
+  right: var(--space-sm);
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--univalle-gray-medium);
+  cursor: pointer;
+  padding: var(--space-xs);
+  border-radius: var(--radius-sm);
+  transition: var(--transition-fast);
+}
+
+.univalle-search-button:hover {
+  color: var(--univalle-primary);
+  background-color: rgba(204, 0, 0, 0.1);
+}
+
+/* Action Buttons */
+.univalle-navigation-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.univalle-action-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  color: var(--univalle-gray-dark);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  transition: var(--transition-fast);
+  position: relative;
+}
+
+.univalle-action-button:hover {
+  color: var(--univalle-primary);
+  background-color: var(--univalle-gray-light);
+}
+
+.univalle-action-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--univalle-primary);
+}
+
+.univalle-action-label {
+  font-size: var(--text-xs);
+}
+
+.univalle-cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background-color: var(--univalle-primary);
+  color: var(--univalle-white);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-bold);
+  border-radius: var(--radius-full);
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  padding: 0 4px;
+}
+
+/* Mobile Menu Toggle */
+.univalle-mobile-menu-toggle {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-sm);
+  border-radius: var(--radius-md);
+  color: var(--univalle-gray-dark);
+  transition: var(--transition-fast);
+}
+
+.univalle-mobile-menu-toggle:hover {
+  color: var(--univalle-primary);
+  background-color: var(--univalle-gray-light);
+}
+
+/* Mobile Menu */
+.univalle-mobile-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: var(--univalle-white);
+  border-bottom: 1px solid var(--univalle-gray-border);
+  box-shadow: var(--univalle-shadow-lg);
+  z-index: 1001;
+}
+
+.univalle-mobile-menu-content {
+  padding: var(--space-lg);
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+.univalle-mobile-search {
+  margin-bottom: var(--space-lg);
+}
+
+.univalle-mobile-navigation-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.univalle-mobile-navigation-item {
+  border-bottom: 1px solid var(--univalle-gray-border);
+}
+
+.univalle-mobile-navigation-item:last-child {
+  border-bottom: none;
+}
+
+.univalle-mobile-navigation-link {
+  display: block;
+  padding: var(--space-md) 0;
+  text-decoration: none;
+  color: var(--univalle-gray-dark);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--text-base);
+  transition: var(--transition-fast);
+}
+
+.univalle-mobile-navigation-link:hover {
+  color: var(--univalle-primary);
+}
+
+.univalle-mobile-navigation-link-active {
+  color: var(--univalle-primary);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .univalle-navigation-content {
+    padding: var(--space-sm) 0;
+    gap: var(--space-md);
+  }
+  
+  .univalle-logo-icon {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .univalle-logo-shape {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .univalle-logo-title {
+    font-size: var(--text-base);
+  }
+  
+  .univalle-logo-subtitle {
+    font-size: 10px;
+  }
+  
+  .univalle-action-button {
+    padding: var(--space-xs);
+  }
+  
+  .univalle-action-label {
+    display: none;
+  }
+  
+  .univalle-cart-badge {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+    min-width: 16px;
+  }
+}
+
+@media (max-width: 1023px) {
+  .univalle-navigation-search {
+    display: none;
+  }
+  
+  .univalle-navigation-menu {
+    display: none;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .univalle-navigation-link,
+  .univalle-action-button,
+  .univalle-search-input,
+  .univalle-search-button,
+  .univalle-mobile-menu-toggle,
+  .univalle-mobile-navigation-link {
+    transition: none;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .univalle-navigation {
+    border-bottom-width: 2px;
+  }
+  
+  .univalle-navigation-link-active::after {
+    height: 3px;
+  }
+  
+  .univalle-search-input:focus {
+    outline: 2px solid var(--univalle-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .univalle-navigation {
+    position: static;
+    box-shadow: none;
+    border-bottom: 1px solid black;
+  }
+  
+  .univalle-action-button,
+  .univalle-mobile-menu-toggle {
+    display: none;
+  }
+}

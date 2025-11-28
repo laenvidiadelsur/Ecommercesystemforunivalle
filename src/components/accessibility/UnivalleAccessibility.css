@@ -1,0 +1,172 @@
+/* Univalle Accessibility Components */
+
+/* Skip Links */
+.univalle-skip-links {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+}
+
+.univalle-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--univalle-primary);
+  color: var(--univalle-white);
+  padding: 8px 12px;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+  transition: top 0.3s ease-in-out;
+  z-index: 1000;
+  border: 2px solid transparent;
+}
+
+.univalle-skip-link:focus {
+  top: 6px;
+  outline: 2px solid var(--univalle-white);
+  outline-offset: 2px;
+  border-color: var(--univalle-white);
+}
+
+.univalle-skip-link:hover {
+  background: var(--univalle-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* Screen Reader Only */
+.univalle-sr-only {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+/* Visually Hidden with Focusable Option */
+.univalle-visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+.univalle-visually-hidden-focusable:focus {
+  position: static !important;
+  width: auto !important;
+  height: auto !important;
+  padding: inherit !important;
+  margin: inherit !important;
+  overflow: visible !important;
+  clip: auto !important;
+  white-space: normal !important;
+}
+
+/* Live Region */
+.univalle-live-region {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Accessibility Announcer */
+.univalle-announcer {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Enhanced Focus Indicators */
+.univalle-focus-enhanced {
+  outline: 3px solid var(--univalle-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.2);
+}
+
+.univalle-focus-enhanced:focus {
+  outline: 3px solid var(--univalle-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.2);
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .univalle-skip-link {
+    background: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+  
+  .univalle-skip-link:focus {
+    outline: 3px solid #ffffff;
+    outline-offset: 2px;
+  }
+  
+  .univalle-focus-enhanced {
+    outline: 3px solid #000000;
+    box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .univalle-skip-link {
+    transition: none;
+  }
+  
+  .univalle-skip-link:hover {
+    transform: none;
+  }
+}
+
+/* Mobile Responsive Skip Links */
+@media (max-width: 767px) {
+  .univalle-skip-link {
+    font-size: 14px;
+    padding: 6px 10px;
+  }
+  
+  .univalle-skip-link:focus {
+    top: 4px;
+    left: 4px;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .univalle-skip-links,
+  .univalle-live-region,
+  .univalle-announcer {
+    display: none !important;
+  }
+  
+  .univalle-visually-hidden {
+    position: static !important;
+    width: auto !important;
+    height: auto !important;
+    padding: inherit !important;
+    margin: inherit !important;
+    overflow: visible !important;
+    clip: auto !important;
+    white-space: normal !important;
+  }
+}

@@ -129,7 +129,10 @@ export function Vendor({ onNavigate }: VendorProps) {
   }
 
   return (
-    <div className="container py-8">
+    <div
+      className="py-8"
+      style={{ maxWidth: 1400, margin: '0 auto', padding: '0 16px' }}
+    >
       <div className="mb-8">
         <h1 className="text-3xl font-bold mb-2">Panel de Vendedor</h1>
         <p className="text-muted-foreground">
@@ -177,7 +180,7 @@ export function Vendor({ onNavigate }: VendorProps) {
                     <Label htmlFor="categoria">Categoría *</Label>
                     <Select
                       value={formData.categoria_id}
-                      onValueChange={(value) => setFormData({ ...formData, categoria_id: value })}
+                      onValueChange={(value: any) => setFormData({ ...formData, categoria_id: value })}
                       required
                     >
                       <SelectTrigger>

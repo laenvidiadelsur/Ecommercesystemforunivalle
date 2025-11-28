@@ -62,7 +62,10 @@ export function Catalog({ onNavigate }: CatalogProps) {
   }
 
   return (
-    <div className="container py-8">
+    <div
+      className="py-8"
+      style={{ maxWidth: 1400, margin: '0 auto', padding: '0 16px' }}
+    >
       <div className="mb-8">
         <h1 className="mb-2 text-4xl">Catálogo de Productos</h1>
         <p className="text-muted-foreground">
@@ -137,7 +140,7 @@ export function Catalog({ onNavigate }: CatalogProps) {
           <div className="mb-4 text-sm text-muted-foreground">
             {products.length} producto{products.length !== 1 ? 's' : ''} encontrado{products.length !== 1 ? 's' : ''}
           </div>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+          <div className="grid gap-6 grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {products.map((product) => (
               <ProductCard
                 key={product.id}

@@ -1,0 +1,563 @@
+/* Univalle Design System - Professional UI with Advanced UX/UI Principles */
+
+/* ===================================
+   UNIVALLE COLOR SYSTEM
+   =================================== */
+
+/* Primary Color: #CC0000 - Warm red for attention-grabbing elements */
+/* Secondary Color: #800040 - Professional burgundy for institutional elements */
+/* White: #FFFFFF - Clean background and negative space */
+/* Gray Dark: #333333 - Primary text and neutral elements */
+
+:root {
+  /* Core Univalle Colors */
+  --univalle-primary: #CC0000;
+  --univalle-secondary: #800040;
+  --univalle-white: #FFFFFF;
+  --univalle-gray-dark: #333333;
+  --univalle-gray-medium: #666666;
+  --univalle-gray-light: #F5F5F5;
+  --univalle-gray-border: #E0E0E0;
+  
+  /* Extended Color Palette */
+  --univalle-primary-light: #E60000;
+  --univalle-primary-dark: #B30000;
+  --univalle-secondary-light: #993366;
+  --univalle-secondary-dark: #660033;
+  
+  /* Semantic Colors */
+  --univalle-success: #28A745;
+  --univalle-warning: #FFC107;
+  --univalle-error: #DC3545;
+  --univalle-info: #17A2B8;
+  
+  /* Shadow System */
+  --univalle-shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --univalle-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --univalle-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --univalle-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Spacing System (8px grid) */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+  
+  /* Typography */
+  --font-family-primary: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-family-mono: 'Fira Code', 'Monaco', 'Consolas', monospace;
+  
+  /* Font Sizes */
+  --text-xs: 12px;
+  --text-sm: 14px;
+  --text-base: 16px;
+  --text-lg: 18px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 30px;
+  --text-4xl: 36px;
+  
+  /* Font Weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.75;
+  
+  /* Container */
+  --container-max-width: 1200px;
+  --container-padding: var(--space-lg);
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}
+
+/* ===================================
+   TYPOGRAPHY SYSTEM
+   =================================== */
+
+.univalle-text-xs {
+  font-size: var(--text-xs);
+  line-height: var(--leading-tight);
+}
+
+.univalle-text-sm {
+  font-size: var(--text-sm);
+  line-height: var(--leading-normal);
+}
+
+.univalle-text-base {
+  font-size: var(--text-base);
+  line-height: var(--leading-normal);
+}
+
+.univalle-text-lg {
+  font-size: var(--text-lg);
+  line-height: var(--leading-normal);
+}
+
+.univalle-text-xl {
+  font-size: var(--text-xl);
+  line-height: var(--leading-normal);
+  font-weight: var(--font-weight-medium);
+}
+
+.univalle-text-2xl {
+  font-size: var(--text-2xl);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-weight-semibold);
+}
+
+.univalle-text-3xl {
+  font-size: var(--text-3xl);
+  line-height: var(--leading-tight);
+  font-weight: var(--font-weight-bold);
+}
+
+/* ===================================
+   COLOR UTILITIES
+   =================================== */
+
+/* Text Colors */
+.text-univalle-primary {
+  color: var(--univalle-primary);
+}
+
+.text-univalle-secondary {
+  color: var(--univalle-secondary);
+}
+
+.text-univalle-gray {
+  color: var(--univalle-gray-dark);
+}
+
+.text-univalle-gray-medium {
+  color: var(--univalle-gray-medium);
+}
+
+.text-univalle-white {
+  color: var(--univalle-white);
+}
+
+/* Background Colors */
+.bg-univalle-primary {
+  background-color: var(--univalle-primary);
+}
+
+.bg-univalle-secondary {
+  background-color: var(--univalle-secondary);
+}
+
+.bg-univalle-gray-light {
+  background-color: var(--univalle-gray-light);
+}
+
+.bg-univalle-white {
+  background-color: var(--univalle-white);
+}
+
+/* Border Colors */
+.border-univalle-primary {
+  border-color: var(--univalle-primary);
+}
+
+.border-univalle-gray {
+  border-color: var(--univalle-gray-border);
+}
+
+/* ===================================
+   SPACING UTILITIES
+   =================================== */
+
+/* Margin */
+.m-univalle-xs { margin: var(--space-xs); }
+.m-univalle-sm { margin: var(--space-sm); }
+.m-univalle-md { margin: var(--space-md); }
+.m-univalle-lg { margin: var(--space-lg); }
+.m-univalle-xl { margin: var(--space-xl); }
+
+/* Padding */
+.p-univalle-xs { padding: var(--space-xs); }
+.p-univalle-sm { padding: var(--space-sm); }
+.p-univalle-md { padding: var(--space-md); }
+.p-univalle-lg { padding: var(--space-lg); }
+.p-univalle-xl { padding: var(--space-xl); }
+
+/* Gap */
+.gap-univalle-xs { gap: var(--space-xs); }
+.gap-univalle-sm { gap: var(--space-sm); }
+.gap-univalle-md { gap: var(--space-md); }
+.gap-univalle-lg { gap: var(--space-lg); }
+.gap-univalle-xl { gap: var(--space-xl); }
+
+/* ===================================
+   SHADOW UTILITIES
+   =================================== */
+
+.shadow-univalle-sm {
+  box-shadow: var(--univalle-shadow-sm);
+}
+
+.shadow-univalle-md {
+  box-shadow: var(--univalle-shadow-md);
+}
+
+.shadow-univalle-lg {
+  box-shadow: var(--univalle-shadow-lg);
+}
+
+.shadow-univalle-xl {
+  box-shadow: var(--univalle-shadow-xl);
+}
+
+/* ===================================
+   BORDER RADIUS UTILITIES
+   =================================== */
+
+.rounded-univalle-sm {
+  border-radius: var(--radius-sm);
+}
+
+.rounded-univalle-md {
+  border-radius: var(--radius-md);
+}
+
+.rounded-univalle-lg {
+  border-radius: var(--radius-lg);
+}
+
+.rounded-univalle-xl {
+  border-radius: var(--radius-xl);
+}
+
+.rounded-univalle-full {
+  border-radius: var(--radius-full);
+}
+
+/* ===================================
+   CONTAINER SYSTEM
+   =================================== */
+
+.univalle-container {
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+  width: 100%;
+}
+
+.univalle-section {
+  padding: var(--space-2xl) 0;
+}
+
+/* ===================================
+   GRID SYSTEM
+   =================================== */
+
+.univalle-grid {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.univalle-grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+/* Responsive Grid */
+@media (min-width: 640px) {
+  .univalle-sm-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .univalle-md-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .univalle-lg-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ===================================
+   FLEXBOX UTILITIES
+   =================================== */
+
+.univalle-flex {
+  display: flex;
+}
+
+.univalle-flex-col {
+  flex-direction: column;
+}
+
+.univalle-flex-row {
+  flex-direction: row;
+}
+
+.univalle-items-center {
+  align-items: center;
+}
+
+.univalle-items-start {
+  align-items: flex-start;
+}
+
+.univalle-items-end {
+  align-items: flex-end;
+}
+
+.univalle-justify-center {
+  justify-content: center;
+}
+
+.univalle-justify-between {
+  justify-content: space-between;
+}
+
+.univalle-justify-start {
+  justify-content: flex-start;
+}
+
+.univalle-justify-end {
+  justify-content: flex-end;
+}
+
+/* ===================================
+   TRANSITION UTILITIES
+   =================================== */
+
+.univalle-transition {
+  transition: var(--transition-normal);
+}
+
+.univalle-transition-fast {
+  transition: var(--transition-fast);
+}
+
+.univalle-transition-slow {
+  transition: var(--transition-slow);
+}
+
+/* Hover States */
+.univalle-hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--univalle-shadow-lg);
+}
+
+.univalle-hover-scale:hover {
+  transform: scale(1.02);
+}
+
+/* ===================================
+   ACCESSIBILITY UTILITIES
+   =================================== */
+
+/* Focus styles for keyboard navigation */
+.univalle-focus:focus {
+  outline: 2px solid var(--univalle-primary);
+  outline-offset: 2px;
+}
+
+.univalle-focus-visible:focus-visible {
+  outline: 2px solid var(--univalle-primary);
+  outline-offset: 2px;
+}
+
+/* Enhanced focus styles for better visibility */
+.univalle-focus-enhanced:focus {
+  outline: 3px solid var(--univalle-primary);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px rgba(204, 0, 0, 0.2);
+}
+
+/* High contrast focus styles */
+@media (prefers-contrast: high) {
+  .univalle-focus:focus,
+  .univalle-focus-visible:focus-visible {
+    outline: 3px solid var(--univalle-white);
+    outline-offset: 2px;
+  }
+}
+
+/* Screen reader only content */
+.univalle-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Skip to main content link */
+.univalle-skip-link {
+  position: absolute;
+  top: -40px;
+  left: 6px;
+  background: var(--univalle-primary);
+  color: var(--univalle-white);
+  padding: 8px;
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  z-index: 1000;
+  transition: top 0.3s;
+}
+
+.univalle-skip-link:focus {
+  top: 6px;
+}
+
+/* Color contrast utilities */
+.univalle-text-high-contrast {
+  color: var(--univalle-gray-dark);
+  background-color: var(--univalle-white);
+}
+
+.univalle-bg-high-contrast {
+  background-color: var(--univalle-white);
+  color: var(--univalle-gray-dark);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .univalle-high-contrast {
+    border-width: 2px;
+  }
+  
+  .univalle-text-high-contrast {
+    color: #000000;
+    background-color: #ffffff;
+  }
+  
+  .univalle-button-primary {
+    background-color: #000000;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .univalle-transition,
+  .univalle-transition-fast,
+  .univalle-transition-slow {
+    transition: none !important;
+  }
+  
+  .univalle-hover-lift:hover,
+  .univalle-hover-scale:hover {
+    transform: none !important;
+  }
+  
+  .univalle-button,
+  .univalle-card,
+  .univalle-navigation-link {
+    transition: none !important;
+  }
+  
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus visible for keyboard users only */
+.univalle-focus-visible-keyboard:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.univalle-focus-visible-keyboard:focus-visible {
+  outline: 2px solid var(--univalle-primary);
+  outline-offset: 2px;
+}
+
+/* ===================================
+   RESPONSIVE UTILITIES
+   =================================== */
+
+/* Hide on mobile */
+@media (max-width: 767px) {
+  .univalle-hide-mobile {
+    display: none;
+  }
+}
+
+/* Hide on desktop */
+@media (min-width: 768px) {
+  .univalle-hide-desktop {
+    display: none;
+  }
+}
+
+/* Mobile first responsive text */
+.univalle-text-responsive {
+  font-size: var(--text-sm);
+}
+
+@media (min-width: 640px) {
+  .univalle-text-responsive {
+    font-size: var(--text-base);
+  }
+}
+
+@media (min-width: 1024px) {
+  .univalle-text-responsive {
+    font-size: var(--text-lg);
+  }
+}
+
+/* ===================================
+   PRINT STYLES
+   =================================== */
+
+@media print {
+  .univalle-no-print {
+    display: none;
+  }
+  
+  .univalle-print-only {
+    display: block;
+  }
+  
+  * {
+    background: transparent !important;
+    color: black !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}

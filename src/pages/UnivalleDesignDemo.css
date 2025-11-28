@@ -1,0 +1,489 @@
+/* Univalle Design Demo Styles */
+
+.univalle-demo {
+  min-height: 100vh;
+  background-color: var(--univalle-white);
+}
+
+/* Hero Section */
+.univalle-hero-title {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--univalle-white);
+  text-align: center;
+  margin-bottom: var(--space-sm);
+  line-height: var(--leading-tight);
+}
+
+.univalle-hero-subtitle {
+  display: block;
+  font-size: var(--text-2xl);
+  font-weight: var(--font-weight-medium);
+  color: rgba(255, 255, 255, 0.9);
+  margin-top: var(--space-xs);
+}
+
+.univalle-hero-description {
+  font-size: var(--text-lg);
+  color: rgba(255, 255, 255, 0.8);
+  text-align: center;
+  margin-bottom: var(--space-lg);
+  line-height: var(--leading-relaxed);
+  max-width: 600px;
+}
+
+/* Section Styling */
+.univalle-section-title {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--univalle-gray-dark);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+}
+
+.univalle-section-description {
+  font-size: var(--text-lg);
+  color: var(--univalle-gray-medium);
+  margin-bottom: var(--space-xl);
+  text-align: center;
+  line-height: var(--leading-relaxed);
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.univalle-component-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--univalle-gray-dark);
+  margin-bottom: var(--space-md);
+}
+
+/* Demo Containers */
+.univalle-demo-container {
+  background-color: var(--univalle-gray-light);
+  border: 2px dashed var(--univalle-gray-medium);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+  text-align: center;
+}
+
+.univalle-demo-label {
+  font-size: var(--text-sm);
+  color: var(--univalle-gray-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Demo Grid Items */
+.univalle-demo-grid-item {
+  background-color: var(--univalle-primary);
+  color: var(--univalle-white);
+  padding: var(--space-md);
+  border-radius: var(--radius-md);
+  text-align: center;
+  font-weight: var(--font-weight-medium);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.univalle-demo-grid-label {
+  font-size: var(--text-sm);
+}
+
+/* Demo Flex Items */
+.univalle-demo-flex {
+  background-color: var(--univalle-gray-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin-bottom: var(--space-sm);
+}
+
+.univalle-demo-flex-item {
+  background-color: var(--univalle-secondary);
+  color: var(--univalle-white);
+  padding: var(--space-sm) var(--space-md);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-medium);
+}
+
+/* Color Palette */
+.univalle-color-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+}
+
+.univalle-color-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.univalle-color-swatch {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  border: 2px solid var(--univalle-gray-border);
+  flex-shrink: 0;
+}
+
+.univalle-color-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.univalle-color-name {
+  font-size: var(--text-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--univalle-gray-dark);
+}
+
+.univalle-color-hex {
+  font-size: var(--text-xs);
+  color: var(--univalle-gray-medium);
+  font-family: var(--font-family-mono);
+}
+
+/* Color Swatches */
+.univalle-color-primary {
+  background-color: var(--univalle-primary);
+}
+
+.univalle-color-secondary {
+  background-color: var(--univalle-secondary);
+}
+
+.univalle-color-white {
+  background-color: var(--univalle-white);
+}
+
+.univalle-color-gray-dark {
+  background-color: var(--univalle-gray-dark);
+}
+
+.univalle-color-success {
+  background-color: var(--univalle-success);
+}
+
+.univalle-color-warning {
+  background-color: var(--univalle-warning);
+}
+
+.univalle-color-error {
+  background-color: var(--univalle-error);
+}
+
+.univalle-color-info {
+  background-color: var(--univalle-info);
+}
+
+/* Product Cards */
+.univalle-product-card {
+  overflow: hidden;
+  transition: var(--transition-normal);
+}
+
+.univalle-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--univalle-shadow-xl);
+}
+
+.univalle-product-image {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.univalle-product-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--transition-normal);
+}
+
+.univalle-product-card:hover .univalle-product-img {
+  transform: scale(1.05);
+}
+
+.univalle-product-badge {
+  position: absolute;
+  top: var(--space-sm);
+  right: var(--space-sm);
+  background-color: var(--univalle-primary);
+  color: var(--univalle-white);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--font-weight-medium);
+}
+
+.univalle-product-category {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.univalle-product-content {
+  padding: var(--space-lg);
+}
+
+.univalle-product-title {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--univalle-gray-dark);
+  margin-bottom: var(--space-sm);
+  line-height: var(--leading-normal);
+  min-height: 48px;
+}
+
+.univalle-product-price {
+  font-size: var(--text-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--univalle-primary);
+}
+
+.univalle-product-star {
+  color: #FFD700;
+  fill: #FFD700;
+}
+
+.univalle-product-rating {
+  font-size: var(--text-sm);
+  color: var(--univalle-gray-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+.univalle-product-button {
+  margin-top: var(--space-md);
+}
+
+/* Footer */
+.univalle-footer {
+  margin-top: auto;
+}
+
+.univalle-footer-title {
+  font-size: var(--text-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--univalle-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.univalle-footer-description {
+  font-size: var(--text-sm);
+  color: var(--univalle-gray-medium);
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-md);
+}
+
+.univalle-footer-subtitle {
+  font-size: var(--text-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--univalle-gray-dark);
+  margin-bottom: var(--space-sm);
+}
+
+.univalle-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.univalle-footer-link {
+  display: block;
+  color: var(--univalle-gray-medium);
+  text-decoration: none;
+  font-size: var(--text-sm);
+  padding: var(--space-xs) 0;
+  transition: var(--transition-fast);
+}
+
+.univalle-footer-link:hover {
+  color: var(--univalle-primary);
+}
+
+.univalle-footer-contact {
+  font-size: var(--text-sm);
+  color: var(--univalle-gray-medium);
+  line-height: var(--leading-relaxed);
+}
+
+.univalle-footer-contact p {
+  margin-bottom: var(--space-xs);
+}
+
+.univalle-footer-social {
+  margin-top: var(--space-md);
+}
+
+.univalle-footer-bottom {
+  border-top: 1px solid var(--univalle-gray-border);
+  margin-top: var(--space-xl);
+  padding-top: var(--space-lg);
+  text-align: center;
+}
+
+.univalle-footer-copyright {
+  font-size: var(--text-sm);
+  color: var(--univalle-gray-medium);
+  margin: 0;
+}
+
+/* Accessibility Demo Styles */
+.univalle-accessibility-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 var(--space-md) 0;
+}
+
+.univalle-accessibility-list li {
+  padding: var(--space-xs) 0;
+  font-size: var(--text-sm);
+  color: var(--univalle-gray-medium);
+  border-bottom: 1px solid var(--univalle-gray-border);
+}
+
+.univalle-accessibility-list li:last-child {
+  border-bottom: none;
+}
+
+.univalle-contrast-demo {
+  margin-top: var(--space-md);
+  padding: var(--space-md);
+  background-color: var(--univalle-gray-light);
+  border-radius: var(--radius-md);
+}
+
+.univalle-high-contrast-box {
+  padding: var(--space-md);
+  background-color: var(--univalle-white);
+  color: var(--univalle-gray-dark);
+  border: 2px solid var(--univalle-gray-dark);
+  border-radius: var(--radius-sm);
+  font-weight: var(--font-weight-medium);
+  text-align: center;
+}
+
+@media (prefers-contrast: high) {
+  .univalle-high-contrast-box {
+    background-color: #ffffff;
+    color: #000000;
+    border-color: #000000;
+    border-width: 3px;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 767px) {
+  .univalle-hero-title {
+    font-size: var(--text-3xl);
+  }
+  
+  .univalle-hero-subtitle {
+    font-size: var(--text-xl);
+  }
+  
+  .univalle-hero-description {
+    font-size: var(--text-base);
+  }
+  
+  .univalle-section-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .univalle-section-description {
+    font-size: var(--text-base);
+  }
+  
+  .univalle-color-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .univalle-product-image {
+    height: 160px;
+  }
+  
+  .univalle-product-title {
+    font-size: var(--text-sm);
+    min-height: 40px;
+  }
+  
+  .univalle-product-price {
+    font-size: var(--text-base);
+  }
+}
+
+@media (max-width: 479px) {
+  .univalle-hero-title {
+    font-size: var(--text-2xl);
+  }
+  
+  .univalle-hero-subtitle {
+    font-size: var(--text-lg);
+  }
+  
+  .univalle-section-title {
+    font-size: var(--text-xl);
+  }
+  
+  .univalle-color-swatch {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .univalle-hero-title,
+  .univalle-section-title {
+    color: black;
+  }
+  
+  .univalle-section-description {
+    color: #333;
+  }
+  
+  .univalle-demo-container {
+    border-width: 3px;
+  }
+  
+  .univalle-product-card {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .univalle-product-card:hover,
+  .univalle-product-img,
+  .univalle-hero-title,
+  .univalle-section-title {
+    transition: none;
+    transform: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .univalle-demo {
+    background: white;
+  }
+  
+  .univalle-hero-title,
+  .univalle-section-title {
+    color: black;
+  }
+  
+  .univalle-product-card {
+    box-shadow: none;
+    border: 1px solid black;
+  }
+  
+  .univalle-color-swatch {
+    border: 2px solid black;
+  }
+}

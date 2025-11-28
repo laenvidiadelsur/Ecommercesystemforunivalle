@@ -123,11 +123,15 @@ export default function App() {
     <AuthProvider>
       <CartProvider>
         <div className="flex min-h-screen flex-col">
-          <Header onNavigate={navigate} />
+          {!(currentPage === '/login' || currentPage === '/registro') && (
+            <Header onNavigate={navigate} minimal={currentPage.startsWith('/producto/')} />
+          )}
           <main className="flex-1">
             {renderPage()}
           </main>
-          <Footer />
+          {!(currentPage === '/login' || currentPage === '/registro') && (
+            <Footer minimal={currentPage.startsWith('/producto/')} />
+          )}
           <Toaster />
         </div>
       </CartProvider>

@@ -1,0 +1,480 @@
+/* Univalle Layout Component Styles */
+
+/* Container System */
+.univalle-container {
+  width: 100%;
+  margin: 0 auto;
+  padding-left: var(--container-padding);
+  padding-right: var(--container-padding);
+}
+
+.univalle-container-sm {
+  max-width: 640px;
+}
+
+.univalle-container-md {
+  max-width: 768px;
+}
+
+.univalle-container-lg {
+  max-width: 1024px;
+}
+
+.univalle-container-xl {
+  max-width: 1200px;
+}
+
+.univalle-container-full {
+  max-width: 100%;
+}
+
+/* Container Padding */
+.univalle-container-padding-none {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.univalle-container-padding-sm {
+  padding-left: var(--space-sm);
+  padding-right: var(--space-sm);
+}
+
+.univalle-container-padding-md {
+  padding-left: var(--space-md);
+  padding-right: var(--space-md);
+}
+
+.univalle-container-padding-lg {
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+}
+
+.univalle-container-padding-xl {
+  padding-left: var(--space-xl);
+  padding-right: var(--space-xl);
+}
+
+/* Section System */
+.univalle-section {
+  width: 100%;
+}
+
+.univalle-section-bg-white {
+  background-color: var(--univalle-white);
+}
+
+.univalle-section-bg-light {
+  background-color: var(--univalle-gray-light);
+}
+
+.univalle-section-bg-primary {
+  background-color: var(--univalle-primary);
+  color: var(--univalle-white);
+}
+
+.univalle-section-bg-secondary {
+  background-color: var(--univalle-secondary);
+  color: var(--univalle-white);
+}
+
+.univalle-section-bg-transparent {
+  background-color: transparent;
+}
+
+/* Section Spacing */
+.univalle-section-spacing-none {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.univalle-section-spacing-sm {
+  padding-top: var(--space-sm);
+  padding-bottom: var(--space-sm);
+}
+
+.univalle-section-spacing-md {
+  padding-top: var(--space-md);
+  padding-bottom: var(--space-md);
+}
+
+.univalle-section-spacing-lg {
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
+}
+
+.univalle-section-spacing-xl {
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+}
+
+/* Grid System */
+.univalle-grid {
+  display: grid;
+  width: 100%;
+}
+
+.univalle-grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-5 {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.univalle-grid-cols-6 {
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* Grid Gap */
+.univalle-grid-gap-none {
+  gap: 0;
+}
+
+.univalle-grid-gap-sm {
+  gap: var(--space-sm);
+}
+
+.univalle-grid-gap-md {
+  gap: var(--space-md);
+}
+
+.univalle-grid-gap-lg {
+  gap: var(--space-lg);
+}
+
+.univalle-grid-gap-xl {
+  gap: var(--space-xl);
+}
+
+/* Responsive Grid */
+.univalle-grid-responsive .univalle-grid-cols-1,
+.univalle-grid-responsive .univalle-grid-cols-2,
+.univalle-grid-responsive .univalle-grid-cols-3,
+.univalle-grid-responsive .univalle-grid-cols-4,
+.univalle-grid-responsive .univalle-grid-cols-5,
+.univalle-grid-responsive .univalle-grid-cols-6 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+@media (min-width: 640px) {
+  .univalle-grid-responsive .univalle-grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-4,
+  .univalle-grid-responsive .univalle-grid-cols-5,
+  .univalle-grid-responsive .univalle-grid-cols-6 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 768px) {
+  .univalle-grid-responsive .univalle-grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-5 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-6 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .univalle-grid-responsive .univalle-grid-cols-4 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-5 {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .univalle-grid-responsive .univalle-grid-cols-5 {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  
+  .univalle-grid-responsive .univalle-grid-cols-6 {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+  }
+}
+
+/* Flexbox System */
+.univalle-flex {
+  display: flex;
+}
+
+.univalle-flex-row {
+  flex-direction: row;
+}
+
+.univalle-flex-col {
+  flex-direction: column;
+}
+
+/* Flex Justify */
+.univalle-flex-justify-start {
+  justify-content: flex-start;
+}
+
+.univalle-flex-justify-center {
+  justify-content: center;
+}
+
+.univalle-flex-justify-end {
+  justify-content: flex-end;
+}
+
+.univalle-flex-justify-between {
+  justify-content: space-between;
+}
+
+.univalle-flex-justify-around {
+  justify-content: space-around;
+}
+
+.univalle-flex-justify-evenly {
+  justify-content: space-evenly;
+}
+
+/* Flex Align */
+.univalle-flex-align-start {
+  align-items: flex-start;
+}
+
+.univalle-flex-align-center {
+  align-items: center;
+}
+
+.univalle-flex-align-end {
+  align-items: flex-end;
+}
+
+.univalle-flex-align-stretch {
+  align-items: stretch;
+}
+
+.univalle-flex-align-baseline {
+  align-items: baseline;
+}
+
+/* Flex Gap */
+.univalle-flex-gap-none {
+  gap: 0;
+}
+
+.univalle-flex-gap-sm {
+  gap: var(--space-sm);
+}
+
+.univalle-flex-gap-md {
+  gap: var(--space-md);
+}
+
+.univalle-flex-gap-lg {
+  gap: var(--space-lg);
+}
+
+.univalle-flex-gap-xl {
+  gap: var(--space-xl);
+}
+
+.univalle-flex-wrap {
+  flex-wrap: wrap;
+}
+
+/* Card System */
+.univalle-card {
+  background-color: var(--univalle-white);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+.univalle-card-border {
+  border: 1px solid var(--univalle-gray-border);
+}
+
+.univalle-card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--univalle-shadow-lg);
+}
+
+.univalle-card-clickable {
+  cursor: pointer;
+}
+
+.univalle-card-clickable:focus {
+  outline: 2px solid var(--univalle-primary);
+  outline-offset: 2px;
+}
+
+/* Card Shadows */
+.univalle-card-shadow-none {
+  box-shadow: none;
+}
+
+.univalle-card-shadow-sm {
+  box-shadow: var(--univalle-shadow-sm);
+}
+
+.univalle-card-shadow-md {
+  box-shadow: var(--univalle-shadow-md);
+}
+
+.univalle-card-shadow-lg {
+  box-shadow: var(--univalle-shadow-lg);
+}
+
+/* Card Rounded */
+.univalle-card-rounded-none {
+  border-radius: 0;
+}
+
+.univalle-card-rounded-sm {
+  border-radius: var(--radius-sm);
+}
+
+.univalle-card-rounded-md {
+  border-radius: var(--radius-md);
+}
+
+.univalle-card-rounded-lg {
+  border-radius: var(--radius-lg);
+}
+
+.univalle-card-rounded-xl {
+  border-radius: var(--radius-xl);
+}
+
+/* Card Padding */
+.univalle-card-padding-none {
+  padding: 0;
+}
+
+.univalle-card-padding-sm {
+  padding: var(--space-sm);
+}
+
+.univalle-card-padding-md {
+  padding: var(--space-md);
+}
+
+.univalle-card-padding-lg {
+  padding: var(--space-lg);
+}
+
+.univalle-card-padding-xl {
+  padding: var(--space-xl);
+}
+
+/* Responsive Utilities */
+@media (max-width: 767px) {
+  .univalle-container {
+    padding-left: var(--space-sm);
+    padding-right: var(--space-sm);
+  }
+  
+  .univalle-section-spacing-lg {
+    padding-top: var(--space-md);
+    padding-bottom: var(--space-md);
+  }
+  
+  .univalle-section-spacing-xl {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+  
+  .univalle-grid-responsive {
+    gap: var(--space-md);
+  }
+  
+  .univalle-flex-col-mobile {
+    flex-direction: column;
+  }
+  
+  .univalle-flex-gap-sm-mobile {
+    gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .univalle-container {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+  
+  .univalle-section-spacing-lg {
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+  }
+  
+  .univalle-section-spacing-xl {
+    padding-top: var(--space-xl);
+    padding-bottom: var(--space-xl);
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .univalle-card,
+  .univalle-card-hover:hover {
+    transition: none;
+    transform: none;
+  }
+}
+
+@media (prefers-contrast: high) {
+  .univalle-card-border {
+    border-width: 2px;
+  }
+  
+  .univalle-card-clickable:focus {
+    outline-width: 3px;
+  }
+}
+
+/* Print styles */
+@media print {
+  .univalle-container {
+    max-width: 100%;
+    padding: 0;
+  }
+  
+  .univalle-section {
+    padding: var(--space-sm) 0;
+  }
+  
+  .univalle-card {
+    box-shadow: none;
+    border: 1px solid black;
+  }
+}

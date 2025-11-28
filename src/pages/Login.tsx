@@ -4,7 +4,7 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface LoginProps {
   onNavigate: (path: string) => void;
@@ -38,7 +38,7 @@ export function Login({ onNavigate }: LoginProps) {
   }
 
   return (
-    <div className="container flex min-h-[calc(100vh-200px)] items-center justify-center py-8">
+    <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Iniciar Sesión</CardTitle>
@@ -70,6 +70,15 @@ export function Login({ onNavigate }: LoginProps) {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <div className="text-right">
+                <button
+                  type="button"
+                  onClick={() => onNavigate('/recuperar')}
+                  className="text-sm text-primary underline-offset-4 hover:underline"
+                >
+                  ¿Olvidaste tu contraseña?
+                </button>
+              </div>
             </div>
 
             <Button type="submit" className="w-full" disabled={loading}>

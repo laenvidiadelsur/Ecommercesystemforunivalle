@@ -51,6 +51,7 @@
       },
       "devDependencies": {
             "@types/node": "^20.10.0",
+            "@types/react": "^19.2.6",
             "@vitejs/plugin-react-swc": "^3.10.2",
             "cypress": "^15.6.0",
             "typescript": "^5.9.3",
@@ -60,14 +61,14 @@
             "dev": "vite",
             "build": "vite build",
             "preview": "vite preview",
-        "cypress:open": "cypress open",
-        "cypress:run": "cypress run",
-        "cypress:run:headless": "cypress run --headless",
-        "test:e2e": "cypress run --spec 'cypress/e2e/**/*.cy.ts'",
-        "test:api": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json",
-        "test:api:html": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json -r html --reporter-html-export reports/api-report.html",
-        "test:api:auth": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json --folder \"Auth\"",
-        "test:api:products": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json --folder \"Products\"",
-        "test:api:cart": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json --folder \"Cart\""
+            "cypress:open": "cypress open",
+            "cypress:run": "cypress run",
+            "cypress:run:headless": "cypress run --headless",
+            "test:e2e": "cypress run --spec 'cypress/e2e/**/*.cy.ts'",
+            "test:api": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json",
+            "test:api:html": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json -r html --reporter-html-export reports/api-report.html",
+            "test:api:auth": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json --folder \"Auth\"",
+            "test:api:products": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json --folder \"Products\"",
+            "test:api:cart": "newman run postman/E-Commerce-API-Tests.postman_collection.json -e postman/Supabase-Environment.postman_environment.json --folder \"Cart\""
       }
 }

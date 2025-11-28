@@ -5,7 +5,7 @@ import { Input } from '../components/ui/input';
 import { Label } from '../components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../components/ui/select';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface SignupProps {
   onNavigate: (path: string) => void;
@@ -58,7 +58,7 @@ export function Signup({ onNavigate }: SignupProps) {
   }
 
   return (
-    <div className="container flex min-h-[calc(100vh-200px)] items-center justify-center py-8">
+    <div className="flex min-h-screen items-center justify-center px-4 py-12">
       <Card className="w-full max-w-lg">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl">Crear Cuenta</CardTitle>

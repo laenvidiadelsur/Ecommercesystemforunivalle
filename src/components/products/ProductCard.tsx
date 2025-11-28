@@ -13,28 +13,29 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onViewDetails, onAddToCart }: ProductCardProps) {
   return (
-    <Card className="overflow-hidden transition-shadow hover:shadow-lg cursor-pointer">
-      <div onClick={() => onViewDetails(product.id)}>
+    <Card
+      role="button"
+      tabIndex={0}
+      onClick={() => onViewDetails(product.id)}
+      className="group h-full overflow-hidden rounded-lg flex flex-col cursor-pointer transition-transform duration-200 hover:scale-105 hover:shadow-xl"
+    >
+      <div>
         <div className="aspect-square overflow-hidden bg-muted">
           <ImageWithFallback
             src={product.imagen_url || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500'}
             alt={product.nombre}
-            className="h-full w-full object-cover transition-transform hover:scale-105"
+            className="h-full w-full object-cover transition-transform duration-300"
           />
         </div>
-        <CardContent className="p-4">
-          <div className="flex items-start justify-between gap-2">
-            <div className="min-w-0 flex-1">
-              <h3 className="truncate">{product.nombre}</h3>
-              <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
-                {product.descripcion}
-              </p>
-            </div>
-          </div>
+        <CardContent className="p-4 flex-1">
+          <h3 className="truncate font-medium text-base md:text-lg">{product.nombre}</h3>
+          <p className="mt-1 text-sm text-muted-foreground line-clamp-2">
+            {product.descripcion}
+          </p>
           
-          <div className="mt-3 flex items-center justify-between">
+          <div className="mt-2 flex items-center justify-start gap-2">
             <div>
-              <span className="text-2xl">Bs. {product.precio.toFixed(2)}</span>
+              <span className="text-lg md:text-xl">Bs. {product.precio.toFixed(2)}</span>
             </div>
             {product.stock > 0 ? (
               <Badge variant="outline" className="text-xs">
@@ -56,10 +57,11 @@ export function ProductCard({ product, onViewDetails, onAddToCart }: ProductCard
       </div>
       
       {onAddToCart && (
-        <CardFooter className="p-4 pt-0">
+        <CardFooter className="p-3 pt-0">
           <Button 
             className="w-full"
-            onClick={() => onAddToCart(product.id)}
+            size="sm"
+            onClick={(e) => { e.stopPropagation(); onAddToCart(product.id); }}
             disabled={product.stock === 0}
           >
             <ShoppingCart className="mr-2 h-4 w-4" />

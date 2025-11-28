@@ -1,5 +1,6 @@
 import { Hono } from 'npm:hono';
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { get as kvGet, set as kvSet } from '../kv_store.tsx';
 import { requireAuth, requireRole } from '../middleware/auth.tsx';
 
 const products = new Hono();
@@ -74,6 +75,16 @@ products.get('/:id', async (c) => {
       Deno.env.get('SUPABASE_ANON_KEY')!
     );
 
+    // Try cache first (Redis-like via KV store)
+    const cacheKey = `product:${id}`;
+    const cached = await kvGet(cacheKey);
+    if (cached && cached.expiresAt && cached.data) {
+      const now = Date.now();
+      if (now < cached.expiresAt) {
+        return c.json(cached.data);
+      }
+    }
+
     const { data, error } = await supabase
       .from('products')
       .select(`
@@ -89,6 +100,12 @@ products.get('/:id', async (c) => {
       console.error('Get product error:', error);
       return c.json({ error: 'Producto no encontrado' }, 404);
     }
+
+    // Cache result for 5 minutes
+    await kvSet(cacheKey, {
+      data,
+      expiresAt: Date.now() + 5 * 60 * 1000
+    });
 
     return c.json(data);
 

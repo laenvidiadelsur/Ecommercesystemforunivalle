@@ -36,7 +36,10 @@ export function MyOrders({ onNavigate }: MyOrdersProps) {
 
   if (loading) {
     return (
-      <div className="container py-8">
+      <div
+        className="py-8"
+        style={{ maxWidth: 1400, margin: '0 auto', padding: '0 16px' }}
+      >
         <div className="text-center py-12 text-muted-foreground">
           Cargando órdenes...
         </div>
@@ -45,7 +48,10 @@ export function MyOrders({ onNavigate }: MyOrdersProps) {
   }
 
   return (
-    <div className="container py-8">
+    <div
+      className="py-8"
+      style={{ maxWidth: 1400, margin: '0 auto', padding: '0 16px' }}
+    >
       <div className="mb-8">
         <h1 className="mb-2 text-4xl">Mis Órdenes</h1>
         <p className="text-muted-foreground">
