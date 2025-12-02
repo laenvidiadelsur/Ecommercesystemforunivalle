@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../../hooks/useCart';
 import { Button } from '../ui/button';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet';
+import { Sheet, SheetTrigger, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '../ui/sheet';
+import type React from 'react';
 import { Checkbox } from '../ui/checkbox';
 import { ImageWithFallback } from '../figma/ImageWithFallback';
 import { ShoppingCart, Trash2, Plus, Minus, X, Check } from 'lucide-react';
@@ -9,9 +10,10 @@ import { toast } from 'sonner';
 import type { CartItem } from '../../types';
 
 interface CartDrawerProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
   onNavigate: (path: string) => void;
+  trigger?: React.ReactNode;
 }
 
 // Shimmer effect component
@@ -28,7 +30,7 @@ function ShimmerItem() {
   );
 }
 
-export function CartDrawer({ open, onOpenChange, onNavigate }: CartDrawerProps) {
+export function CartDrawer({ open, onOpenChange, onNavigate, trigger }: CartDrawerProps) {
   const { cart, loading, updateQuantity, removeItem } = useCart();
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
 
@@ -96,6 +98,11 @@ export function CartDrawer({ open, onOpenChange, onNavigate }: CartDrawerProps) 
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
+      {trigger && (
+        <SheetTrigger asChild>
+          {trigger}
+        </SheetTrigger>
+      )}
       <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
@@ -107,7 +114,7 @@ export function CartDrawer({ open, onOpenChange, onNavigate }: CartDrawerProps) 
           </SheetDescription>
         </SheetHeader>
 
-        <div className="mt-6 space-y-4">
+        <div className="mt-6 space-y-6">
           {/* Select All */}
           {cart && cart.items.length > 0 && (
             <div className="flex items-center justify-between p-4 bg-muted/50 rounded-lg">
@@ -124,7 +131,7 @@ export function CartDrawer({ open, onOpenChange, onNavigate }: CartDrawerProps) 
           )}
 
           {/* Cart Items */}
-          <div className="space-y-2">
+          <div className="space-y-4">
             {loading ? (
               // Shimmer effect while loading
               <>
@@ -133,16 +140,18 @@ export function CartDrawer({ open, onOpenChange, onNavigate }: CartDrawerProps) 
                 <ShimmerItem />
               </>
             ) : cart && cart.items.length > 0 ? (
-              cart.items.map((item) => (
-                <CartItemCard
-                  key={item.id}
-                  item={item}
-                  selected={selectedItems.has(item.id)}
-                  onToggleSelect={() => handleToggleItem(item.id)}
-                  onRemove={(e) => handleRemoveItem(item.id, e)}
-                  onUpdateQuantity={(qty) => handleUpdateQuantity(item.id, qty)}
-                />
-              ))
+              <div className="space-y-4">
+                {cart.items.map((item) => (
+                  <CartItemCard
+                    key={item.id}
+                    item={item}
+                    selected={selectedItems.has(item.id)}
+                    onToggleSelect={() => handleToggleItem(item.id)}
+                    onRemove={(e) => handleRemoveItem(item.id, e)}
+                    onUpdateQuantity={(qty) => handleUpdateQuantity(item.id, qty)}
+                  />
+                ))}
+              </div>
             ) : (
               <div className="flex flex-col items-center justify-center py-12 text-center">
                 <ShoppingCart className="h-16 w-16 text-muted-foreground mb-4" />

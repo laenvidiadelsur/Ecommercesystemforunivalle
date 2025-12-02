@@ -14,7 +14,7 @@ export function Footer({ minimal }: FooterProps) {
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="h-5 w-5" style={{ color: '#522b46' }} />
-                <span className="font-semibold" style={{ color: '#522b46' }}>E-commerce System for Univalle</span>
+                <span className="font-semibold" style={{ color: '#522b46' }}>Unimarket</span>
               </div>
               <nav className="flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground">
                 <a href="/" className="hover:underline">Inicio</a>

@@ -17,17 +17,17 @@ app.use('*', cors());
 app.use('*', logger(console.log));
 
 // Health check
-app.get('/make-server-7ff09ef6/health', (c) => {
-  return c.json({ status: 'ok', service: 'univalle-shop' });
+app.get('/health', (c) => {
+  return c.json({ status: 'ok', service: 'unimarket' });
 });
 
-// Mount routes
-app.route('/make-server-7ff09ef6/auth', authRoutes);
-app.route('/make-server-7ff09ef6/products', productRoutes);
-app.route('/make-server-7ff09ef6/categories', categoryRoutes);
-app.route('/make-server-7ff09ef6/cart', cartRoutes);
-app.route('/make-server-7ff09ef6/orders', orderRoutes);
-app.route('/make-server-7ff09ef6/admin', adminRoutes);
+// Mount routes under function root
+app.route('/auth', authRoutes);
+app.route('/products', productRoutes);
+app.route('/categories', categoryRoutes);
+app.route('/cart', cartRoutes);
+app.route('/orders', orderRoutes);
+app.route('/admin', adminRoutes);
 
 // 404 handler
 app.notFound((c) => {

@@ -198,7 +198,7 @@ export function Vendor({ onNavigate }: VendorProps) {
 
                   {/* Precio */}
                   <div className="space-y-2">
-                    <Label htmlFor="precio">Precio (COP) *</Label>
+                    <Label htmlFor="precio">Precio (Bs.) *</Label>
                     <Input
                       id="precio"
                       type="number"
@@ -206,7 +206,7 @@ export function Vendor({ onNavigate }: VendorProps) {
                       step="0.01"
                       value={formData.precio || ''}
                       onChange={(e) => setFormData({ ...formData, precio: parseFloat(e.target.value) || 0 })}
-                      placeholder="0.00"
+                      placeholder="0.00 (Bolivianos)"
                       required
                     />
                   </div>
@@ -238,9 +238,9 @@ export function Vendor({ onNavigate }: VendorProps) {
                   />
                 </div>
 
-                {/* Imagen URL */}
+                {/* Imagen URL (Temporal) */}
                 <div className="space-y-2">
-                  <Label htmlFor="imagen_url">URL de Imagen</Label>
+                  <Label htmlFor="imagen_url">URL de Imagen (Temporal)</Label>
                   <Input
                     id="imagen_url"
                     type="url"
@@ -249,7 +249,7 @@ export function Vendor({ onNavigate }: VendorProps) {
                     placeholder="https://ejemplo.com/imagen.jpg"
                   />
                   <p className="text-xs text-muted-foreground">
-                    Puedes usar URLs de imágenes de internet o subir a un servicio de hosting
+                    Temporal: usa una URL pública de imagen.
                   </p>
                 </div>
 

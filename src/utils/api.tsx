@@ -93,12 +93,13 @@ export const productsAPI = {
       const query = new URLSearchParams(params as any).toString();
       return await fetchAPI(`/products${query ? `?${query}` : ''}`);
     } catch (error: any) {
-      if (error.isConnectionError || error.message.includes('conexión')) {
-        console.warn('Edge Function unavailable, using direct Supabase');
+      try {
+        console.warn('Falling back to direct Supabase for products list');
         const { directProductsAPI } = await import('./supabase/direct');
         return await directProductsAPI.getAll(params);
+      } catch (directError) {
+        throw error;
       }
-      throw error;
     }
   },
   
@@ -106,12 +107,13 @@ export const productsAPI = {
     try {
       return await fetchAPI(`/products/${id}`);
     } catch (error: any) {
-      if (error.isConnectionError || error.message.includes('conexión')) {
-        console.warn('Edge Function unavailable, using direct Supabase');
+      try {
+        console.warn('Falling back to direct Supabase for product by id');
         const { directProductsAPI } = await import('./supabase/direct');
         return await directProductsAPI.getById(id);
+      } catch (directError) {
+        throw error;
       }
-      throw error;
     }
   },
   
@@ -154,12 +156,13 @@ export const categoriesAPI = {
     try {
       return await fetchAPI('/categories');
     } catch (error: any) {
-      if (error.isConnectionError || error.message.includes('conexión')) {
-        console.warn('Edge Function unavailable, using direct Supabase');
+      try {
+        console.warn('Falling back to direct Supabase for categories');
         const { directCategoriesAPI } = await import('./supabase/direct');
         return await directCategoriesAPI.getAll();
+      } catch (directError) {
+        throw error;
       }
-      throw error;
     }
   },
   

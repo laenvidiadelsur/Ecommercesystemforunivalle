@@ -85,7 +85,7 @@ export function Catalog({ onNavigate }: CatalogProps) {
               className="pl-10"
             />
           </div>
-          <Button type="submit">Buscar</Button>
+          <Button type="submit" variant="outline">Buscar</Button>
         </form>
 
         <div className="flex flex-wrap gap-4">

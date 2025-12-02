@@ -10,8 +10,10 @@ import { Catalog } from './pages/Catalog';
 import { MyOrders } from './pages/MyOrders';
 import { Vendor } from './pages/Vendor';
 import { ProductDetail } from './pages/ProductDetail';
+import { Profile } from './pages/Profile';
 import { Button } from './components/ui/button';
 import { Toaster } from './components/ui/sonner';
+import { Cart } from './pages/Cart';
 
 type Page = 
   | '/' 
@@ -79,6 +81,14 @@ export default function App() {
     if (currentPage === '/vendedor') {
       return <Vendor onNavigate={navigate} />;
     }
+
+    if (currentPage === '/perfil') {
+      return <Profile onNavigate={navigate} />;
+    }
+
+    if (currentPage === '/carrito') {
+      return <Cart onNavigate={navigate} />;
+    }
     
     // Product detail page
     if (currentPage.startsWith('/producto/')) {
@@ -124,13 +134,13 @@ export default function App() {
       <CartProvider>
         <div className="flex min-h-screen flex-col">
           {!(currentPage === '/login' || currentPage === '/registro') && (
-            <Header onNavigate={navigate} minimal={currentPage.startsWith('/producto/')} />
+            <Header onNavigate={navigate} minimal={false} />
           )}
           <main className="flex-1">
             {renderPage()}
           </main>
           {!(currentPage === '/login' || currentPage === '/registro') && (
-            <Footer minimal={currentPage.startsWith('/producto/')} />
+            <Footer minimal={false} />
           )}
           <Toaster />
         </div>

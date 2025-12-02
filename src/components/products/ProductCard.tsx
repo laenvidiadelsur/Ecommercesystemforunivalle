@@ -42,7 +42,7 @@ export function ProductCard({ product, onViewDetails, onAddToCart }: ProductCard
                 Stock: {product.stock}
               </Badge>
             ) : (
-              <Badge variant="destructive" className="text-xs">
+              <Badge variant="outline" className="text-xs text-muted-foreground">
                 Agotado
               </Badge>
             )}

@@ -98,10 +98,10 @@ export function Home({ onNavigate }: HomeProps) {
         <div className="container relative z-10 grid gap-12 md:grid-cols-2 items-start justify-items-start" style={{ paddingTop: 130, paddingBottom: 56 }}>
           <div className="flex flex-col items-center justify-center gap-6 text-center mt-12 md:mt-16" style={{ maxWidth: 900 }}>
             <h1 className="text-2xl md:text-5xl lg:text-5xl mt-8">
-              Bienvenido a Univalle Shop
+              Bienvenido a Unimarket
             </h1>
             <p className="text-md text-primary-foreground/90 ml-3">
-              El marketplace oficial de la Universidad del Valle. Compra y vende productos entre estudiantes y la comunidad universitaria.
+              El marketplace oficial de la comunidad. Compra y vende productos de forma fácil.
             </p>
             <div className="flex flex-wrap gap-6 justify-center">
               <Button 
