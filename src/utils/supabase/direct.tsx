@@ -434,3 +434,92 @@ export const directAuthAPI = {
   },
 };
 
+// Orders
+export const directOrdersAPI = {
+  create: async (data: { direccion_entrega: string; telefono_contacto: string; notas?: string }): Promise<Order> => {
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) throw new Error('Usuario no autenticado');
+
+    const { data: cart } = await supabase
+      .from('carts')
+      .select('id')
+      .eq('user_id', user.id)
+      .maybeSingle();
+
+    if (!cart) throw new Error('Tu carrito está vacío');
+
+    const { data: items, error: itemsError } = await supabase
+      .from('cart_items')
+      .select(`
+        *,
+        producto:products(id, nombre, precio, stock)
+      `)
+      .eq('cart_id', cart.id);
+
+    if (itemsError) throw itemsError;
+    if (!items || items.length === 0) throw new Error('Tu carrito está vacío');
+
+    const cartItems = (items || []).map((item: any) => ({
+      producto_id: item.producto_id,
+      cantidad: item.cantidad,
+      precio_unitario: item.precio_unitario || item.producto?.precio || 0,
+    }));
+
+    for (const it of items || []) {
+      const p = it.producto as any;
+      if (!p || p.stock < it.cantidad) {
+        const nombre = p?.nombre ? `"${p.nombre}"` : 'producto';
+        const disponible = p?.stock ?? 0;
+        throw new Error(`Stock insuficiente para ${nombre}. Disponible: ${disponible}`);
+      }
+    }
+
+    const total = cartItems.reduce((sum, it) => sum + (it.cantidad * it.precio_unitario), 0);
+
+    const { data: order, error: orderError } = await supabase
+      .from('orders')
+      .insert({
+        usuario_id: user.id,
+        total,
+        estado: 'pendiente',
+        direccion_entrega: data.direccion_entrega,
+        telefono_contacto: data.telefono_contacto,
+        notas: data.notas || null,
+      })
+      .select()
+      .single();
+
+    if (orderError) throw orderError;
+
+    const orderItemsPayload = cartItems.map((it) => ({
+      orden_id: (order as any).id,
+      producto_id: it.producto_id,
+      cantidad: it.cantidad,
+      precio_unitario: it.precio_unitario,
+      subtotal: it.cantidad * it.precio_unitario,
+    }));
+
+    const { error: oiError } = await supabase
+      .from('order_items')
+      .insert(orderItemsPayload);
+
+    if (oiError) throw oiError;
+
+    for (const it of items || []) {
+      const newStock = (it.producto as any).stock - it.cantidad;
+      const { error: stockError } = await supabase
+        .from('products')
+        .update({ stock: newStock })
+        .eq('id', it.producto_id);
+      if (stockError) throw stockError;
+    }
+
+    await supabase
+      .from('cart_items')
+      .delete()
+      .eq('cart_id', cart.id);
+
+    return order as Order;
+  },
+};
+

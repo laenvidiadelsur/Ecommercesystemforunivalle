@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useCart } from '../hooks/useCart';
 import { Button } from '../components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '../components/ui/card';
@@ -6,6 +7,8 @@ import { Checkbox } from '../components/ui/checkbox';
 import { Separator } from '../components/ui/separator';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
 import { ShoppingCart, Trash2, Plus, Minus, Check } from 'lucide-react';
+import { Input } from '../components/ui/input';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../components/ui/select';
 
 interface CartPageProps {
   onNavigate: (path: string) => void;
@@ -13,9 +16,14 @@ interface CartPageProps {
 
 export function Cart({ onNavigate }: CartPageProps) {
   const { cart, loading, updateQuantity, removeItem, clearCart } = useCart();
+  const [coupon, setCoupon] = useState('');
+  const [shipping, setShipping] = useState<'domicilio' | 'retiro'>('domicilio');
 
   const selectedCount = cart?.items.length || 0;
-  const total = cart?.items.reduce((sum, item) => sum + item.cantidad * item.precio_unitario, 0) || 0;
+  const subtotal = cart?.items.reduce((sum, item) => sum + item.cantidad * item.precio_unitario, 0) || 0;
+  const discount = coupon.trim().toUpperCase() === 'UNIVALLE10' ? subtotal * 0.1 : coupon.trim().toUpperCase() === 'BIENVENIDA50' ? 50 : 0;
+  const shippingCost = shipping === 'domicilio' ? 20 : 0;
+  const total = Math.max(0, subtotal - discount) + shippingCost;
 
   return (
     <div className="py-10 md:py-12 lg:py-16" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 20px' }}>
@@ -100,6 +108,35 @@ export function Cart({ onNavigate }: CartPageProps) {
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Cupón de descuento</div>
+                  <div className="flex gap-2">
+                    <Input placeholder="UNIVALLE10 / BIENVENIDA50" value={coupon} onChange={(e) => setCoupon(e.target.value)} />
+                    <Button variant="outline" onClick={() => setCoupon(coupon)}>Aplicar</Button>
+                  </div>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-sm text-muted-foreground">Método de entrega</div>
+                  <Select value={shipping} onValueChange={(v: any) => setShipping(v)}>
+                    <SelectTrigger><SelectValue placeholder="Selecciona" /></SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="domicilio">Entrega a domicilio (Bs. 20)</SelectItem>
+                      <SelectItem value="retiro">Retiro en punto (Bs. 0)</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Subtotal</span>
+                  <span className="text-sm">Bs. {subtotal.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Descuento</span>
+                  <span className="text-sm">− Bs. {discount.toFixed(2)}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm text-muted-foreground">Envío</span>
+                  <span className="text-sm">Bs. {shippingCost.toFixed(2)}</span>
+                </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-muted-foreground">Total</span>
                   <span className="text-xl font-semibold">Bs. {total.toFixed(2)}</span>

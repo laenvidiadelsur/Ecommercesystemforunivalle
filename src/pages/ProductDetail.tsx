@@ -13,7 +13,10 @@ import { Separator } from '../components/ui/separator';
 import { ProductCard } from '../components/products/ProductCard';
 import { toast } from 'sonner';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from '../components/ui/carousel';
-import { Star } from 'lucide-react';
+import { Star, Heart } from 'lucide-react';
+import { Input } from '../components/ui/input';
+import { Textarea } from '../components/ui/textarea';
+import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from '../components/ui/select';
 
 interface ProductDetailProps {
   onNavigate: (path: string) => void;
@@ -46,6 +49,12 @@ export function ProductDetail({ onNavigate, productId }: ProductDetailProps) {
         setLoading(true);
         const data = await productsAPI.getById(productId);
         setProduct(data as Product);
+        try {
+          const prev = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+          const item = { id: (data as any).id, nombre: (data as any).nombre, precio: (data as any).precio, imagen_url: (data as any).imagen_url };
+          const next = [item, ...prev.filter((p: any) => p.id !== item.id)].slice(0, 6);
+          localStorage.setItem('recentlyViewed', JSON.stringify(next));
+        } catch {}
       } catch (e: any) {
         setError(e?.message || 'Error al cargar el producto');
       } finally {
@@ -108,6 +117,28 @@ export function ProductDetail({ onNavigate, productId }: ProductDetailProps) {
   function handleAddToCart() {
     if (!product) return;
     addToCart(product.id, quantity);
+  }
+
+  const [wishlist, setWishlist] = useState<string[]>(() => {
+    try { return JSON.parse(localStorage.getItem('wishlist') || '[]'); } catch { return []; }
+  });
+  const isWished = product ? wishlist.includes(product.id) : false;
+  function toggleWishlist() {
+    if (!product) return;
+    const next = isWished ? wishlist.filter(id => id !== product.id) : [...wishlist, product.id];
+    setWishlist(next);
+    try { localStorage.setItem('wishlist', JSON.stringify(next)); } catch {}
+  }
+
+  const [reviews, setReviews] = useState<Array<{ nombre: string; rating: number; comentario: string }>>([
+    { nombre: 'Ana', rating: 5, comentario: 'Excelente producto, llegó rápido.' },
+    { nombre: 'Carlos', rating: 4, comentario: 'Buena relación calidad/precio.' },
+  ]);
+  const [newReview, setNewReview] = useState<{ nombre: string; rating: number; comentario: string }>({ nombre: '', rating: 5, comentario: '' });
+  function addReview() {
+    if (!newReview.nombre || !newReview.comentario) return;
+    setReviews([...reviews, newReview]);
+    setNewReview({ nombre: '', rating: 5, comentario: '' });
   }
 
   async function handleBuyNow() {
@@ -248,6 +279,9 @@ export function ProductDetail({ onNavigate, productId }: ProductDetailProps) {
               {product.categoria?.nombre && (
                 <Badge variant="outline">{product.categoria.nombre}</Badge>
               )}
+              <Button variant="ghost" size="icon" onClick={toggleWishlist} aria-label="Wishlist">
+                <Heart className={"h-5 w-5 " + (isWished ? 'text-red-500' : 'text-muted-foreground')} />
+              </Button>
             </div>
 
             {product.vendedor?.nombre && (
@@ -366,16 +400,35 @@ export function ProductDetail({ onNavigate, productId }: ProductDetailProps) {
         <Separator className="my-10 md:my-12 lg:my-16 opacity-60" />
         <div className="mt-12 md:mt-16 lg:mt-20 grid gap-8 md:gap-10 lg:gap-12 grid-cols-1 md:grid-cols-3">
           <div className="md:col-span-2">
-            <h2 className="text-2xl mb-4">Reseñas y calificaciones</h2>
-            <div className="flex items-center gap-2 mb-2">
-              {[0,1,2,3,4].map((i) => (
-                <Star key={i} className="h-5 w-5" style={{ color: '#f5a623' }} />
+            <h2 className="text-2xl mb-4">Reseñas</h2>
+            <div className="space-y-3 mb-4">
+              {reviews.map((r, i) => (
+                <div key={i} className="border rounded-lg p-3">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-medium">{r.nombre}</div>
+                    <div className="flex items-center gap-1">
+                      {Array.from({ length: r.rating }).map((_, idx) => (<Star key={idx} className="h-4 w-4 text-yellow-500" />))}
+                    </div>
+                  </div>
+                  <div className="text-sm text-muted-foreground mt-1">{r.comentario}</div>
+                </div>
               ))}
-              <span className="text-sm text-muted-foreground">Sin calificaciones aún</span>
             </div>
-            <div className="text-sm text-muted-foreground">
-              Reseñas no disponibles momentáneamente
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-2 mb-2">
+              <Input placeholder="Tu nombre" value={newReview.nombre} onChange={(e) => setNewReview({ ...newReview, nombre: e.target.value })} />
+              <Select value={String(newReview.rating)} onValueChange={(v: any) => setNewReview({ ...newReview, rating: parseInt(v) })}>
+                <SelectTrigger><SelectValue placeholder="Calificación" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="5">5</SelectItem>
+                  <SelectItem value="4">4</SelectItem>
+                  <SelectItem value="3">3</SelectItem>
+                  <SelectItem value="2">2</SelectItem>
+                  <SelectItem value="1">1</SelectItem>
+                </SelectContent>
+              </Select>
+              <Button onClick={addReview}>Enviar reseña</Button>
             </div>
+            <Textarea placeholder="Tu comentario" value={newReview.comentario} onChange={(e) => setNewReview({ ...newReview, comentario: e.target.value })} />
           </div>
           <div>
             <h2 className="text-2xl mb-4">Especificaciones</h2>

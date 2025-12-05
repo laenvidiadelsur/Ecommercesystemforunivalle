@@ -2,7 +2,7 @@ import { useState, useEffect, createContext, useContext, ReactNode } from 'react
 import { cartAPI } from '../utils/api';
 import { useAuth } from './useAuth';
 import type { CartResponse, CartItem } from '../types';
-import { toast } from 'sonner@2.0.3';
+import { toast } from 'sonner';
 
 interface CartContextType {
   cart: CartResponse | null;

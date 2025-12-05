@@ -14,6 +14,7 @@ import { Profile } from './pages/Profile';
 import { Button } from './components/ui/button';
 import { Toaster } from './components/ui/sonner';
 import { Cart } from './pages/Cart';
+import { Checkout } from './pages/Checkout';
 
 type Page = 
   | '/' 
@@ -97,19 +98,14 @@ export default function App() {
       return <ProductDetail onNavigate={navigate} productId={productId} />;
     }
     
-    // Checkout page (placeholder for now)
+    // Checkout page
     if (currentPage === '/checkout') {
-      return (
-        <div className="container py-12 text-center">
-          <h1 className="mb-4 text-3xl">Checkout</h1>
-          <p className="text-muted-foreground mb-4">
-            Página de checkout en desarrollo
-          </p>
-          <Button onClick={() => navigate('/')}>
-            Volver al inicio
-          </Button>
-        </div>
-      );
+      return <Checkout onNavigate={navigate} />;
+    }
+
+    // Order detail route: mostrar listado de órdenes por ahora
+    if (currentPage.startsWith('/orden/')) {
+      return <MyOrders onNavigate={navigate} />;
     }
     
     // Placeholder for other pages

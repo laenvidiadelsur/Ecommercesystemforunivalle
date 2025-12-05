@@ -243,14 +243,55 @@ export const cartAPI = {
 
 // Orders API
 export const ordersAPI = {
-  getAll: (token: string) => 
-    fetchAPI('/orders', { token }),
+  getAll: async (token: string) => {
+    try {
+      return await fetchAPI('/orders', { token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        const { supabase } = await import('./supabase/client');
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) throw new Error('Usuario no autenticado');
+        const { data, error: listError } = await supabase
+          .from('orders')
+          .select('*')
+          .eq('usuario_id', user.id)
+          .order('created_at', { ascending: false });
+        if (listError) throw listError;
+        return data;
+      }
+      throw error;
+    }
+  },
   
-  getById: (id: string, token: string) => 
-    fetchAPI(`/orders/${id}`, { token }),
+  getById: async (id: string, token: string) => {
+    try {
+      return await fetchAPI(`/orders/${id}`, { token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        const { supabase } = await import('./supabase/client');
+        const { data, error: getError } = await supabase
+          .from('orders')
+          .select(`*, items:order_items(*, producto:products(id, nombre, precio))`)
+          .eq('id', id)
+          .single();
+        if (getError) throw getError;
+        return data;
+      }
+      throw error;
+    }
+  },
   
-  create: (data: any, token: string) => 
-    fetchAPI('/orders', { method: 'POST', body: JSON.stringify(data), token }),
+  create: async (data: any, token: string) => {
+    try {
+      return await fetchAPI('/orders', { method: 'POST', body: JSON.stringify(data), token });
+    } catch (error: any) {
+      if (error.isConnectionError || error.message.includes('conexión') || error.message.includes('no disponible')) {
+        const { directOrdersAPI } = await import('./supabase/direct');
+        return await directOrdersAPI.create(data);
+      }
+      throw error;
+    }
+  },
   
   updateStatus: (id: string, estado: string, token: string) => 
     fetchAPI(`/orders/${id}/status`, { method: 'PUT', body: JSON.stringify({ estado }), token }),

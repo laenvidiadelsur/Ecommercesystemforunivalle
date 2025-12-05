@@ -34,6 +34,7 @@ export function Home({ onNavigate }: HomeProps) {
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
+  const [recently, setRecently] = useState<Array<{ id: string; nombre: string; precio: number; imagen_url?: string }>>([]);
   const carouselRef = useRef<HTMLDivElement | null>(null);
 
   function scrollCarousel(direction: 'left' | 'right') {
@@ -61,6 +62,12 @@ export function Home({ onNavigate }: HomeProps) {
 
   useEffect(() => {
     loadData();
+    try {
+      const prev = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+      setRecently(Array.isArray(prev) ? prev : []);
+    } catch {
+      setRecently([]);
+    }
   }, []);
 
   async function loadData() {
@@ -210,6 +217,38 @@ export function Home({ onNavigate }: HomeProps) {
           </div>
         )}
       </section>
+
+      {/* Recently Viewed */}
+      {recently.length > 0 && (
+        <section className="container mb-8">
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h2 className="text-3xl">Vistos recientemente</h2>
+              <p className="text-muted-foreground">Continúa donde lo dejaste</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            {recently.map((p) => (
+              <button
+                key={p.id}
+                onClick={() => onNavigate(`/producto/${p.id}`)}
+                className="rounded-lg border overflow-hidden text-left"
+                aria-label={p.nombre}
+              >
+                <ImageWithFallback
+                  src={p.imagen_url || 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400'}
+                  alt={p.nombre}
+                  className="w-full h-32 object-cover"
+                />
+                <div className="p-3">
+                  <div className="text-sm font-medium truncate">{p.nombre}</div>
+                  <div className="text-sm text-muted-foreground">Bs. {Number(p.precio).toFixed(2)}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        </section>
+      )}
 
      
     </div>
